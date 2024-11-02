@@ -32,6 +32,8 @@ struct RecipeDetailView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 
+                VStack{
+                    
                 
                 // Recipe Title
                 Text(recipe.title)
@@ -44,32 +46,39 @@ struct RecipeDetailView: View {
                 // Recipe Description
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Description")
-                        .font(.headline)
+                        .font(.title2)
                         .fontWeight(.bold)
+
                     Text(recipe.description)
                         .font(.body)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                 }
+                .padding(.vertical)
                 
                 // Recipe Ingredients
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Ingredients")
-                        .font(.headline)
-                        .fontWeight(.bold)
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        
                     ForEach(recipe.ingredients, id: \.self) { ingredient in
                         Text(ingredient)
                             .padding(.leading, 10)
+
                     }
+                    
                     .font(.body)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    
                 }
+                    
                 
                 // Recipe Steps
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Steps")
-                        .font(.headline)
-                        .fontWeight(.bold)
+                        .font(.title3)
+                        .fontWeight(.semibold)
                     
                     ForEach(recipe.steps.indices, id: \.self) { index in
                         Text("\(index + 1). \(recipe.steps[index])")
@@ -99,12 +108,11 @@ struct RecipeDetailView: View {
                     }
                     Button("Cancel", role: .cancel) { }
                 }
-                    
-                }
+                }.padding(.horizontal)
+        }
         
             
         }
-//        .navigationTitle(recipe.title)
         .navigationBarItems(trailing: Button("Edit") {
             // Handle Edit Action
             isPresented = true
@@ -119,6 +127,9 @@ struct RecipeDetailView: View {
             })
         }
     }
+    
+
+        
     
     func deleteRecipe() {
         if let index = model.recipes.firstIndex(where: { $0.id == recipe.id }) {

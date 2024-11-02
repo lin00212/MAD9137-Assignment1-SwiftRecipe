@@ -184,6 +184,7 @@ struct ListView: View {
         }
     }
     }
+        
     
     func splitTextToArray(from text: String) -> [String] {
         text.split(separator: ",")
@@ -237,4 +238,5 @@ struct ListView: View {
 
 #Preview {
     ListView()
+        .preferredColorScheme(.dark)
 }
