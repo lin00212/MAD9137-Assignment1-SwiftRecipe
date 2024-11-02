@@ -52,10 +52,32 @@ struct ListView: View {
                             RecipeDetailView(model: model, recipe: recipe)
                             
                         } label: {
-                            Text(recipe.title)
-                                .font(.headline)
-                                .foregroundColor(.green)
-                                .padding(15)
+                            HStack{
+                                
+                                    AsyncImage(url: URL(string:recipe.image)) { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 60, height: 60, alignment: .center)
+                                            .clipShape(Circle())
+                                    } placeholder: {
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 60, height: 60, alignment: .center)
+                                            .foregroundColor(.gray.opacity(0.8))
+                                    }
+                                VStack(alignment: .leading, spacing: 5){
+                                    Text(recipe.title)
+                                        .font(.headline)
+                                        .foregroundColor(.green)
+                                        .padding(.vertical, 12)
+                                    Text(recipe.description)
+                                        .font(.callout)
+                                        .foregroundColor(.gray)
+                                        .lineLimit(2)
+                                }
+                            }
                         }
                     }
                     .onDelete { indexSet in

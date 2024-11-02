@@ -29,7 +29,9 @@ struct RecipeDetailView: View {
                         .scaledToFit()
                         .frame(width: 100, height: 100, alignment: .center)
                         .foregroundColor(.white.opacity(0.5))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
+                
                 
                 // Recipe Title
                 Text(recipe.title)
