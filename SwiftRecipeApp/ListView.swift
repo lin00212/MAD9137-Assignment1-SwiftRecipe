@@ -63,7 +63,7 @@ struct ListView: View {
                         showAlert = true
                     }
                 }
-            }
+            
             
             .searchable(text: $searchText, prompt: "Search by title or ingredient")
             .navigationTitle("Recipes")
@@ -79,50 +79,78 @@ struct ListView: View {
                 }
             }
             .sheet(isPresented: $isPresented) {
-                Form {
-                    Section(header: Text("Recipe Details").font(.headline)) {
-                        TextField("Title", text: $title)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.vertical, 5)
+                VStack {
+                       Text("New Recipe")
+                           .font(.title)
+                           .fontWeight(.bold)
+                           .padding()
+                           .presentationBackground(Color.init(.systemGray6))
+                    Form {
+                        Section(header: Text("Recipe Details").font(.headline)) {
+                            TextField("Title", text: $title)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding(.vertical, 5)
+                            
+                            TextField("Description", text: $description)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding(.vertical, 5)
+                        }
+                        
+                        Section(header: Text("Ingredients").font(.headline)) {
+                            TextField("Add ingredients", text: $ingredientsText)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding(.vertical, 5)
+                        }
+                        
+                        Section(header: Text("Steps").font(.headline)) {
+                            TextField("Add steps", text: $stepsText)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding(.vertical, 5)
+                        }
 
-                        TextField("Description", text: $description)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.vertical, 5)
-                    }
-
-                    Section(header: Text("Ingredients").font(.headline)) {
-                        TextField("Add ingredients", text: $ingredientsText)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.vertical, 5)
-                    }
-
-                    Section(header: Text("Steps").font(.headline)) {
-                        TextField("Add steps", text: $stepsText)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.vertical, 5)
+                        
                     }
                     
+                }
+
+
+                HStack {
                     Button {
                         addRecipe()
-                        isPresented = false
+//                        isPresented = false
+
                     } label: {
                         Text("Add Recipe")
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: 120)
                             .padding()
                             .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal,10)
+                    Spacer()
+                    Button {
+                        isPresented = false
+                    } label: {
+                        Text("Cancel")
+                            .frame(maxWidth: 120)
+                            .padding()
+                            .background(Color.gray)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .padding(.horizontal,10)
                 }
-                .padding()
-                .navigationTitle("New Recipe")
-                .navigationBarTitleDisplayMode(.inline)
+                .padding(.horizontal, 20)
+                // Make sure the alert is outside the sheet so it go back when button is click!
+                .alert("Please fill in all fields before adding the recipe.", isPresented: $showWarning) {
+                    Button("OK", role: .cancel) { }
+                }
             }
-            .alert("Please fill in all fields before adding the recipe.", isPresented: $showWarning) {
-                Button("OK", role: .cancel) { }
-            }
+  
+
         }
+
         
         .alert("Are you sure you want to delete this recipe?", isPresented: $showAlert) {
             Button("Delete", role: .destructive) {
@@ -132,6 +160,7 @@ struct ListView: View {
             }
             Button("Cancel", role: .cancel) { }
         }
+    }
     }
     
     func splitTextToArray(from text: String) -> [String] {
