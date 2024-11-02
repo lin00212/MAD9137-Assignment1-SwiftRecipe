@@ -15,7 +15,7 @@ struct Recipe: Identifiable {
     var description: String
     var ingredients: [String]
     var steps: [String]
-    var image: String? // later
+    var image: String // later
 }
 
 struct ListView: View {
@@ -25,7 +25,7 @@ struct ListView: View {
     @State private var description: String = ""
     @State private var ingredients: [String] = []
     @State private var steps: [String] = []
-    @State private var image: Image?
+    @State private var image: String = ""
     @State private var ingredientsText: String = ""
     @State private var stepsText: String = ""
     
@@ -67,7 +67,7 @@ struct ListView: View {
             
             .searchable(text: $searchText, prompt: "Search by title or ingredient")
             .navigationTitle("Recipes")
-            //            .navigationBarTitleDisplayMode(.inline)
+                
             .toolbar {
                 
                 ToolbarItem {
@@ -117,7 +117,7 @@ struct ListView: View {
                 HStack {
                     Button {
                         addRecipe()
-//                        isPresented = false
+                        isPresented = false
 
                     } label: {
                         Text("Add Recipe")
@@ -178,7 +178,7 @@ struct ListView: View {
             let ingredientsArray = splitTextToArray(from: ingredientsText)
             let stepsArray = splitTextToArray(from: stepsText)
             
-            let newRecipe = Recipe(title: title, description: description, ingredients: ingredientsArray, steps: stepsArray)
+            let newRecipe = Recipe(title: title, description: description, ingredients: ingredientsArray, steps: stepsArray, image: image)
             model.recipes.append(newRecipe)
             clearInputs()
         } else {

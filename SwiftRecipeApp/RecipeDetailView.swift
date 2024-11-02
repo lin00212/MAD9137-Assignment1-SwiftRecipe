@@ -18,6 +18,19 @@ struct RecipeDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
+                
+                AsyncImage(url: URL(string:recipe.image)) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } placeholder: {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100, alignment: .center)
+                        .foregroundColor(.white.opacity(0.5))
+                }
+                
                 // Recipe Title
                 Text(recipe.title)
                     .font(.largeTitle)
@@ -118,7 +131,7 @@ struct DemoView: View{
     
     @ObservedObject var model: RecipeListModel = RecipeListModel()
     var recipe: Recipe = Recipe(
-        title: "title", description: "sadf", ingredients: [], steps: []
+        title: "title", description: "sadf", ingredients: [], steps: [], image: ""
     )
 
     
