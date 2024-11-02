@@ -119,13 +119,13 @@ struct ListView: View {
                         }
                         
                         Section(header: Text("Ingredients").font(.headline)) {
-                            TextField("Add ingredients", text: $ingredientsText)
+                            TextField("Add ingredients (separate by comma)", text: $ingredientsText)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .padding(.vertical, 5)
                         }
                         
                         Section(header: Text("Steps").font(.headline)) {
-                            TextField("Add steps", text: $stepsText)
+                            TextField("Add steps (separate by comma)", text: $stepsText)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .padding(.vertical, 5)
                         }
